@@ -18,6 +18,11 @@ val midnightCalendar: Calendar = Calendar.getInstance().apply {
     this.setMidnight()
 }
 
+@Deprecated("Use getMidnightCalendar()")
+val calendar: Calendar = Calendar.getInstance().apply {
+    this.setMidnight()
+}
+
 /**
  * This method sets an hour in the calendar object to 00:00:00:00
  *

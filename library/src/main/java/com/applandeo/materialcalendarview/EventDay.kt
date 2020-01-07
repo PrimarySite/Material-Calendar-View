@@ -20,12 +20,24 @@ import java.util.*
  * Created by Applandeo Team.
  */
 
-data class EventDay @JvmOverloads constructor(
-        private val day: Calendar,
-        private val drawable: Drawable? = null,
-        @DrawableRes private val drawableRes: Int = 0,
-        val labelColor: Int = 0
-) {
+data class EventDay(private val day: Calendar) {
+
+    init {
+        day.setMidnight()
+    }
+
+    constructor(day: Calendar, drawable: Drawable? = null) : this(day) {
+        imageDrawable = drawable
+    }
+
+    constructor(day: Calendar, @DrawableRes drawableRes: Int = 0) : this(day) {
+        imageDrawable = drawableRes
+    }
+
+    constructor(day: Calendar, @DrawableRes drawableRes: Int = 0, labelColor: Int = 0) : this(day) {
+        imageDrawable = drawableRes
+        this.labelColor = labelColor
+    }
 
     /**
      * @return Calendar object which represents a date of current event
@@ -44,11 +56,6 @@ data class EventDay @JvmOverloads constructor(
     @set:RestrictTo(RestrictTo.Scope.LIBRARY)
     var isEnabled: Boolean = false
 
-    init {
-        day.setMidnight()
-        drawable?.let { imageDrawable = drawable }
-        if (drawableRes != 0) {
-            imageDrawable = drawableRes
-        }
-    }
+    @set:RestrictTo(RestrictTo.Scope.LIBRARY)
+    var labelColor: Int = 0
 }
