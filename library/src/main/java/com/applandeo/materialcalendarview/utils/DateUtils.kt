@@ -14,14 +14,16 @@ import java.util.concurrent.TimeUnit
 /**
  * @return An instance of the Calendar object with hour set to 00:00:00:00
  */
-val midnightCalendar: Calendar = Calendar.getInstance().apply {
-    this.setMidnight()
-}
+val midnightCalendar: Calendar
+    get() = Calendar.getInstance().apply {
+        this.setMidnight()
+    }
 
 @Deprecated("Use getMidnightCalendar()")
-val calendar: Calendar = Calendar.getInstance().apply {
-    this.setMidnight()
-}
+val calendar: Calendar
+    get() = Calendar.getInstance().apply {
+        this.setMidnight()
+    }
 
 /**
  * This method sets an hour in the calendar object to 00:00:00:00
@@ -43,7 +45,7 @@ fun Calendar.setMidnight() = this.apply {
  * @return Boolean value if second calendar is before the first one
  */
 fun Calendar.isMonthBefore(secondCalendar: Calendar) =
-    this.isMonthBeforeOrAfter(secondCalendar, true)
+        this.isMonthBeforeOrAfter(secondCalendar, true)
 
 /**
  * This method compares calendars using month and year
@@ -53,7 +55,7 @@ fun Calendar.isMonthBefore(secondCalendar: Calendar) =
  * @return Boolean value if second calendar is after the first one
  */
 fun Calendar.isMonthAfter(secondCalendar: Calendar) =
-    this.isMonthBeforeOrAfter(secondCalendar, false)
+        this.isMonthBeforeOrAfter(secondCalendar, false)
 
 private fun Calendar.isMonthBeforeOrAfter(secondCalendar: Calendar, isBefore: Boolean): Boolean {
     val firstDay = (this.clone() as Calendar).apply {
@@ -67,6 +69,7 @@ private fun Calendar.isMonthBeforeOrAfter(secondCalendar: Calendar, isBefore: Bo
 
     return if (isBefore) secondDay.before(firstDay) else secondDay.after(firstDay)
 }
+
 /**
  * This method returns a string containing a month's name and a year (in number).
  * It's used instead of new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format([Date]);
