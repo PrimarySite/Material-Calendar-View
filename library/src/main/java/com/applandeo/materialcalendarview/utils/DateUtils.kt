@@ -44,20 +44,7 @@ fun Calendar.setMidnight() = this.apply {
  * @param secondCalendar Second calendar object to compare
  * @return Boolean value if second calendar is before the first one
  */
-fun Calendar.isMonthBefore(secondCalendar: Calendar) =
-        this.isMonthBeforeOrAfter(secondCalendar, true)
-
-/**
- * This method compares calendars using month and year
- *
- * @param this  First calendar object to compare
- * @param secondCalendar Second calendar object to compare
- * @return Boolean value if second calendar is after the first one
- */
-fun Calendar.isMonthAfter(secondCalendar: Calendar) =
-        this.isMonthBeforeOrAfter(secondCalendar, false)
-
-private fun Calendar.isMonthBeforeOrAfter(secondCalendar: Calendar, isBefore: Boolean): Boolean {
+fun Calendar.isMonthBefore(secondCalendar: Calendar): Boolean {
     val firstDay = (this.clone() as Calendar).apply {
         setMidnight()
         set(Calendar.DAY_OF_MONTH, 1)
@@ -67,8 +54,17 @@ private fun Calendar.isMonthBeforeOrAfter(secondCalendar: Calendar, isBefore: Bo
         set(Calendar.DAY_OF_MONTH, 1)
     }
 
-    return if (isBefore) secondDay.before(firstDay) else secondDay.after(firstDay)
+    return secondDay.before(firstDay)
 }
+
+/**
+ * This method compares calendars using month and year
+ *
+ * @param this  First calendar object to compare
+ * @param secondCalendar Second calendar object to compare
+ * @return Boolean value if second calendar is after the first one
+ */
+fun Calendar.isMonthAfter(secondCalendar: Calendar) = !isMonthBefore(secondCalendar)
 
 /**
  * This method returns a string containing a month's name and a year (in number).
@@ -90,11 +86,10 @@ fun Calendar.getMonthAndYearDate(context: Context) = String.format("%s  %s",
  * @param endCalendar   Calendar representing a last date
  * @return Number of months
  */
-fun Calendar.getMonthsBetweenDates(endCalendar: Calendar): Int {
+fun Calendar.getMonthsToDate(endCalendar: Calendar): Int {
     val years = endCalendar.get(Calendar.YEAR) - this.get(Calendar.YEAR)
     return years * 12 + endCalendar.get(Calendar.MONTH) - this.get(Calendar.MONTH)
 }
-
 
 /**
  * This method is used to count a number of days between two dates
@@ -103,7 +98,7 @@ fun Calendar.getMonthsBetweenDates(endCalendar: Calendar): Int {
  * @param endCalendar   Calendar representing a last date
  * @return Number of days
  */
-private fun Calendar.getDaysBetweenDates(endCalendar: Calendar) =
+private fun Calendar.getDaysToDate(endCalendar: Calendar) =
         TimeUnit.MILLISECONDS.toDays(endCalendar.timeInMillis - this.timeInMillis)
 
 fun List<Calendar>.isFullDatesRange(): Boolean {
@@ -113,7 +108,7 @@ fun List<Calendar>.isFullDatesRange(): Boolean {
         return true
     }
 
-    val sortedCalendars = this.sortedBy { it.timeInMillis }.toList()
+    val sortedCalendars = this.sortedBy { it.timeInMillis }
 
-    return listSize.toLong() == sortedCalendars.first().getDaysBetweenDates(sortedCalendars[listSize - 1]) + 1
+    return listSize.toLong() == sortedCalendars.first().getDaysToDate(sortedCalendars[listSize - 1]) + 1
 }

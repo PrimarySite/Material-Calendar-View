@@ -118,7 +118,7 @@ class DayRowClickListener(
     private fun reverseUnselectedColor(selectedDay: SelectedDay) {
         selectedDay.calendar.setCurrentMonthDayColors(
                 midnightCalendar,
-                selectedDay.view as TextView,
+                selectedDay.view as? TextView,
                 calendarProperties
         )
     }
@@ -137,7 +137,7 @@ class DayRowClickListener(
     }
 
     private fun isOutOfMaxRange(firstDay: Calendar, lastDay: Calendar): Boolean {
-//         Number of selected days plus one last day
+        // Number of selected days plus one last day
         val numberOfSelectedDays = firstDay.getDatesRange(lastDay).size + 1
         val daysMaxRange: Int = calendarProperties.maximumDaysRange
 
