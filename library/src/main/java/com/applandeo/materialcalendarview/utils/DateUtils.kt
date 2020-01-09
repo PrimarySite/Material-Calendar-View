@@ -64,7 +64,8 @@ fun Calendar.isMonthBefore(secondCalendar: Calendar): Boolean {
  * @param secondCalendar Second calendar object to compare
  * @return Boolean value if second calendar is after the first one
  */
-fun Calendar.isMonthAfter(secondCalendar: Calendar) = !isMonthBefore(secondCalendar)
+fun Calendar.isMonthAfter(secondCalendar: Calendar) =
+        secondCalendar.isMonthBefore(this)
 
 /**
  * This method returns a string containing a month's name and a year (in number).
