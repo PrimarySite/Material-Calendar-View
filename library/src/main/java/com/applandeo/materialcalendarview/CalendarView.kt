@@ -373,7 +373,7 @@ class CalendarView @JvmOverloads constructor(
      * This method is used to return to current month page
      */
     fun showCurrentMonthPage() {
-        val page = calendarViewPager.currentItem - midnightCalendar.getMonthsBetweenDates(currentPageDate)
+        val page = calendarViewPager.currentItem - midnightCalendar.getMonthsToDate(currentPageDate)
         calendarViewPager.setCurrentItem(page, true)
     }
 

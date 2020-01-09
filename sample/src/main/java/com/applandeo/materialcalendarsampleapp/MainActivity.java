@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .setDialogButtonsColor(android.R.color.white)
                 .setDaysLabelsColor(android.R.color.white)
                 .setAnotherMonthsDaysLabelsColor(R.color.sampleLighter)
-//                .setSelectedDays(selectedDays)
+                .setSelectedDays(selectedDays)
                 .setMaximumDaysRange(10)
                 .setDisabledDays(getDisabledDays());
 
