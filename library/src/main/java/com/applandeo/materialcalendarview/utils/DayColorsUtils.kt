@@ -80,12 +80,12 @@ private fun setTodayColors(dayLabel: TextView, calendarProperties: CalendarPrope
             R.drawable.background_transparent)
 
     // Sets custom background color for present
-    if (calendarProperties.todayLabelColor != 0) {
+    if (calendarProperties.todayColor != 0) {
         dayLabel.setDayColors(
                 calendarProperties.selectionLabelColor,
                 Typeface.NORMAL,
                 R.drawable.background_color_circle_selector)
-        setDayBackgroundColor(dayLabel, calendarProperties.todayLabelColor)
+        setDayBackgroundColor(dayLabel, calendarProperties.todayColor)
     }
 }
 
